@@ -1,0 +1,3 @@
+[submodule "Submodules/Actors-Unity3d-Framework"]
+	path = Submodules/Actors-Unity3d-Framework
+	url = https://github.com/dimmPixeye/Actors-Unity3d-Framework
