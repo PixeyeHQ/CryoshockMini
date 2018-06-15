@@ -1,0 +1,12 @@
+{
+    "name": "ASM-EditorFramework",
+    "references": [
+        "ASM-Framework"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

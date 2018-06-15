@@ -14,9 +14,9 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
+  - Move
+  - Solid
+  - Dead
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Stars
+    uniqueID: 433669511
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

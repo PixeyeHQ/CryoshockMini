@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae68dcc6b2c4fbbb0661dc4669d4825, type: 3}
+  m_Name: FactorySpawner
+  m_EditorClassIdentifier: 
+  prefabEnemies:
+  - {fileID: 1727472987129962, guid: cb97160bdd5c2854988622fafb7313e1, type: 2}
+  weapons:
+  - {fileID: 11400000, guid: f6e1c2abc7d00314f876aac9c5849c44, type: 2}
+  - {fileID: 11400000, guid: 14b686585edd48343bb6900dfa37359a, type: 2}
+  prefabPlayer: {fileID: 1717728362355242, guid: 85a7fe73ed6e85046bd6598f90cc5219,
+    type: 2}

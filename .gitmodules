@@ -1,3 +1,6 @@
 [submodule "Submodules/Actors-Unity3d-Framework"]
 	path = Submodules/Actors-Unity3d-Framework
 	url = https://github.com/dimmPixeye/Actors-Unity3d-Framework
+[submodule "Submodules/Unity-Homebrew"]
+	path = Submodules/Unity-Homebrew
+	url = https://github.com/dimmPixeye/Unity-Homebrew
