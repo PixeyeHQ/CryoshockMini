@@ -16,7 +16,6 @@ namespace Homebrew
 	{
 		public TextMeshProUGUI label;
 
-
 		public override void OnEnable()
 		{
 			if (state.HasState(EntityState.OnHold)) return;
@@ -26,7 +25,6 @@ namespace Homebrew
 
 		public override void OnDisable()
 		{
-			
 			base.OnDisable();
 			ProcessingSignals.Default.Remove(this);
 		}
