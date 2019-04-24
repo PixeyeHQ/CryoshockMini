@@ -5,6 +5,7 @@
 /[Bb]uild/
 /[Bb]uilds/
 /PATCH/
+/OLD/
 /Assets/AssetStoreTools*
 
 # Visual Studio 2015 cache directory

@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/[2]Content/Scenes/sceneGame.unity
-    guid: d01beded07230f840a5fc9e828fa9259
+    path: Assets/Scenes/Scene Game.unity
+    guid: 359bd7fcfc21e8c46af1f25848efaabb
   - enabled: 1
-    path: Assets/[2]Content/Scenes/sceneUI.unity
-    guid: eec50bb2eda7d4545af6147c20790d0f
+    path: Assets/Scenes/Scene Kernel.unity
+    guid: b1c1e3eb1cede744db636d5f7c880773
   - enabled: 1
-    path: Assets/[2]Content/Scenes/sceneKernel.unity
-    guid: c17b93c2ef0a26b40a321989855fe391
+    path: Assets/Scenes/Scene Camera.unity
+    guid: ba81c98bb666b7d46afb064b34bff2de
   m_configObjects: {}
