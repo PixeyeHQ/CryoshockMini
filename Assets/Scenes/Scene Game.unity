@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 464549598}
   - component: {fileID: 464549599}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 583162129}
   - component: {fileID: 583162130}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 727356453}
   - component: {fileID: 727356454}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 809735231}
   - component: {fileID: 809735232}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1083375337}
   - component: {fileID: 1083375338}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1546262096}
   - component: {fileID: 1546262097}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -799,7 +799,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1695462214}
   - component: {fileID: 1695462215}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,7 +856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1816580282}
   - component: {fileID: 1816580283}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -913,7 +913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1910014298}
   - component: {fileID: 1910014299}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -970,7 +970,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2053206027}
   - component: {fileID: 2053206028}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

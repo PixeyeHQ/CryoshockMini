@@ -16,7 +16,6 @@ namespace Pixeye
 		public static void Player(in ent entity, ComponentAnimator cAnimator)
 		{
 			var cMotion = entity.ComponentMotion();
-		//	Debug.Log(cAnimator.source.GetParameter(Anim.ParamInput).name);
 			cAnimator.source.SetFloat(Anim.paramInput,Math.Abs(cMotion.velocity.x));
 			
 		}
