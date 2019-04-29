@@ -12,7 +12,8 @@ namespace Pixeye
 	{
 
 		public float speedMax;
-
+		public Vector2 velocity;
+		
 		public void Copy(int entityID)
 		{
 			var component = Storage<ComponentMotion>.Instance.GetFromStorage(entityID);

@@ -1,25 +1,24 @@
 //  Project : game.cryoshockmini
 // Contacts : Pix - ask@pixeye.games
 
+
 using Pixeye.Framework;
-using UnityEngine;
+
 
 namespace Pixeye
 {
-	public class ProcessorAnimations : Processor
+	public class ProcessorAnimations : Processor, ITick
 	{
 
-		public Group<ComponentAnimations> groupOfAnimations;
+		private Group<ComponentAnimator> groupOfAnimators;
 
-		public ProcessorAnimations()
+		public void Tick()
 		{
-			groupOfAnimations.onAdd += AwakeInGroupOfAnimations;
-		}
-
-		void AwakeInGroupOfAnimations(in ent entity)
-		{
-			var animator = entity.Get<Animator>();
-			animator.runtimeAnimatorController = entity.ComponentAnimations().source;
+			foreach (ent entity in groupOfAnimators)
+			{
+				var cAnimator = entity.ComponentAnimator();
+				cAnimator.guide(entity, cAnimator);
+			}
 		}
 
 	}

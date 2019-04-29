@@ -11,10 +11,10 @@ namespace Pixeye
 	public class ComponentInput : IComponent
 	{
 
-		public KeyCode InputMoveRight;
-		public KeyCode InputMoveLeft;
-		public KeyCode InputJump;
-		public KeyCode InputShoot;
+		public KeyCode inputMoveRight;
+		public KeyCode inputMoveLeft;
+		public KeyCode inputShoot;
+		public KeyCode inputJump;
 
 		
 		

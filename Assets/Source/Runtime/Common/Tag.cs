@@ -10,6 +10,6 @@ namespace Pixeye
 
 		[TagField]
 		public const int None = 0;
-
+ 
 	}
 }

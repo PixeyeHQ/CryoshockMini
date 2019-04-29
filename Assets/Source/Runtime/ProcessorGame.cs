@@ -6,19 +6,36 @@ using UnityEngine;
 
 namespace Pixeye
 {
-	public class ProcessorGame : Processor
+	public class ProcessorGame : Processor, ITick
 	{
 
-		public Group<ComponentRigid> groupOfRigids;
+		private Group<ComponentFace, ComponentRender> groupToFlip;
+		private Group<ComponentFace, ComponentMotion> groupToControlFace;
 
-		public ProcessorGame()
+		public void Tick()
 		{
-			groupOfRigids.onAdd += AwakeInGroupOfRigids;
-		}
+			foreach (ent entity in groupToFlip)
+			{
+				var cFace = entity.ComponentFace();
+				var cRender = entity.ComponentRender();
 
-		void AwakeInGroupOfRigids(in ent entity)
-		{
-			entity.ComponentRigid().source = entity.Get<Rigidbody2D>();
+				if (cFace.direction != cFace.directionOld)
+				{
+					cRender.source.flipX = cFace.direction < 0;
+					cFace.directionOld = cFace.direction;
+				}
+			}
+
+			foreach (ent entity in groupToControlFace)
+			{
+				var cFace = entity.ComponentFace();
+				var cMotion = entity.ComponentMotion();
+
+				if (cMotion.velocity.x > 0)
+					cFace.direction = 1;
+				else if (cMotion.velocity.x < 0)
+					cFace.direction = -1;
+			}
 		}
 
 	}

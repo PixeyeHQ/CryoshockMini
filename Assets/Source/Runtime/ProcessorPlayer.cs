@@ -3,13 +3,16 @@
 
 using Pixeye.Framework;
 using UnityEngine;
+using Time = Pixeye.Framework.Time;
 
 namespace Pixeye
 {
 	public class ProcessorPlayer : Processor, ITick
 	{
 
-		public Group<ComponentInput, ComponentMotion, ComponentRigid> groupOfPlayers;
+		public Group<ComponentInput, ComponentMotion, ComponentRigid, ComponentObject> groupOfPlayers;
+		public Group<ComponentInput, ComponentAbilityJump, ComponentRigid> groupThatCanJump;
+ 
 
 		public void Tick()
 		{
@@ -18,11 +21,12 @@ namespace Pixeye
 				var cInput = entity.ComponentInput();
 				var cRigid = entity.ComponentRigid();
 				var cMotion = entity.ComponentMotion();
+				var cObject = entity.ComponentObject();
 
 				var velocity = cRigid.source.velocity;
 
-				var moveLeft = Input.GetKey(cInput.InputMoveLeft);
-				var moveRight = Input.GetKey(cInput.InputMoveRight);
+				var moveLeft = Input.GetKey(cInput.inputMoveLeft);
+				var moveRight = Input.GetKey(cInput.inputMoveRight);
 
 				if (moveLeft || moveRight)
 				{
@@ -39,10 +43,33 @@ namespace Pixeye
 				else velocity.x = 0;
 
 				cRigid.source.velocity = velocity;
+				cMotion.velocity = velocity;
+				cObject.position = cRigid.source.position;
+			}
 
-				if (Input.GetKeyDown(cInput.InputJump))
+			foreach (var entity in groupThatCanJump)
+			{
+				var cInput = entity.ComponentInput();
+				var cAbilityJump = entity.ComponentAbilityJump();
+				var cObject = entity.ComponentObject();
+
+				if (cAbilityJump.checkGround)
 				{
-					cRigid.source.AddForce(new Vector2(0, 240));
+					var hit = Physics2D.Raycast(cObject.position, Vector2.down, 0.15f, 1 << 10);
+					if (hit)
+					{
+						cAbilityJump.working = false;
+						cAbilityJump.checkGround = false;
+					}
+				}
+
+				if (Input.GetKeyDown(cInput.inputJump) && !cAbilityJump.working)
+				{
+					var cRigid = entity.ComponentRigid();
+					cAbilityJump.working = true;
+
+					cRigid.source.AddForce(new Vector2(0, cAbilityJump.force));
+					Timer.Add(Time.deltaFixed * 10, () => cAbilityJump.checkGround = true); // not a good habbyt.
 				}
 			}
 		}
