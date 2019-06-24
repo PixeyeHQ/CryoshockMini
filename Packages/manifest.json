@@ -2,7 +2,7 @@
   "dependencies": {
     "com.pixeye.ecs": "https://github.com/dimmpixeye/ecs.git",
     "com.unity.package-manager-ui": "2.1.2",
-    "com.unity.textmeshpro": "2.0.0",
+    "com.unity.textmeshpro": "2.0.1",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.assetbundle": "1.0.0",
@@ -36,7 +36,7 @@
   },
   "lock": {
     "com.pixeye.ecs": {
-      "hash": "33d532c7838b151275d5d1cf29ffe777ce576881",
+      "hash": "94875dceb13b18499ebd5ca1552ecaf1ad2fe16c",
       "revision": "HEAD"
     }
   }

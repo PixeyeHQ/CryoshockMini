@@ -12,7 +12,7 @@ namespace Pixeye
 		private Group<ComponentFace, ComponentRender> groupToFlip;
 		private Group<ComponentFace, ComponentMotion> groupToControlFace;
 
-		public void Tick()
+		public void Tick(float delta)
 		{
 			foreach (ent entity in groupToFlip)
 			{

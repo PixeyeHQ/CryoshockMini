@@ -7,25 +7,24 @@ using Time = Pixeye.Framework.Time;
 
 namespace Pixeye
 {
-	public class ProcessorPlayer : Processor, ITick
+	class ProcessorPlayer : Processor, ITick
 	{
+		Group<ComponentInput, ComponentMotion, ComponentRigid, ComponentObject> groupOfPlayers;
+		Group<ComponentInput, ComponentAbilityJump, ComponentRigid> groupThatCanJump;
 
-		public Group<ComponentInput, ComponentMotion, ComponentRigid, ComponentObject> groupOfPlayers;
-		public Group<ComponentInput, ComponentAbilityJump, ComponentRigid> groupThatCanJump;
- 
 
-		public void Tick()
+		public void Tick(float delta)
 		{
 			foreach (var entity in groupOfPlayers)
 			{
-				var cInput = entity.ComponentInput();
-				var cRigid = entity.ComponentRigid();
+				var cInput  = entity.ComponentInput();
+				var cRigid  = entity.ComponentRigid();
 				var cMotion = entity.ComponentMotion();
 				var cObject = entity.ComponentObject();
 
 				var velocity = cRigid.source.velocity;
 
-				var moveLeft = Input.GetKey(cInput.inputMoveLeft);
+				var moveLeft  = Input.GetKey(cInput.inputMoveLeft);
 				var moveRight = Input.GetKey(cInput.inputMoveRight);
 
 				if (moveLeft || moveRight)
@@ -43,22 +42,22 @@ namespace Pixeye
 				else velocity.x = 0;
 
 				cRigid.source.velocity = velocity;
-				cMotion.velocity = velocity;
-				cObject.position = cRigid.source.position;
+				cMotion.velocity       = velocity;
+				cObject.position       = cRigid.source.position;
 			}
 
 			foreach (var entity in groupThatCanJump)
 			{
-				var cInput = entity.ComponentInput();
+				var cInput       = entity.ComponentInput();
 				var cAbilityJump = entity.ComponentAbilityJump();
-				var cObject = entity.ComponentObject();
+				var cObject      = entity.ComponentObject();
 
 				if (cAbilityJump.checkGround)
 				{
 					var hit = Physics2D.Raycast(cObject.position, Vector2.down, 0.15f, 1 << 10);
 					if (hit)
 					{
-						cAbilityJump.working = false;
+						cAbilityJump.working     = false;
 						cAbilityJump.checkGround = false;
 					}
 				}
@@ -73,6 +72,5 @@ namespace Pixeye
 				}
 			}
 		}
-
 	}
 }

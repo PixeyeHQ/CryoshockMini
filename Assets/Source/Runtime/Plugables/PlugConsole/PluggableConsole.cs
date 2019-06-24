@@ -1,6 +1,8 @@
 //   Project : Actors
 //  Contacts : Pixeye - ask@pixeye.games 
 
+ 
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
@@ -18,6 +20,7 @@ namespace Pixeye
 
 		public override void Plug()
 		{
+			SettingsEngine.DefineDebugMode = true; 
 			Toolbox.Add<ProcessorConsole>().Setup(commandsDebug);
 		}
 

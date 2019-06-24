@@ -8,35 +8,28 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	public class ComponentRigid : IComponent
+	sealed class ComponentRigid
 	{
-
 		public Rigidbody2D source;
-
-		public void Copy(int entityID)
-		{
-			var component = Storage<ComponentRigid>.Instance.GetFromStorage(entityID);
-		}
-
-		public void Dispose()
-		{
-		}
-
 	}
 
 	public static partial class HelperComponents
 	{
-
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentRigidInit()
 		{
-			Storage<ComponentRigid>.Instance.Creator = () => { return new ComponentRigid(); };
+			Storage<ComponentRigid>.Instance.Creator       = () => { return new ComponentRigid(); };
+			Storage<ComponentRigid>.Instance.DisposeAction = ComponentRigidDispose;
 		}
 
-		public static ComponentRigid ComponentRigid(this in ent entity)
+		static void ComponentRigidDispose(ComponentRigid component)
+		{
+			component.source = null;
+		}
+
+		internal static ComponentRigid ComponentRigid(this in ent entity)
 		{
 			return Storage<ComponentRigid>.Instance.components[entity.id];
 		}
-
 	}
 }

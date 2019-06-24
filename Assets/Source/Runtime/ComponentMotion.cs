@@ -8,36 +8,28 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	public class ComponentMotion : IComponent
+	sealed class ComponentMotion
 	{
-
 		public float speedMax;
 		public Vector2 velocity;
-		
-		public void Copy(int entityID)
-		{
-			var component = Storage<ComponentMotion>.Instance.GetFromStorage(entityID);
-		}
-
-		public void Dispose()
-		{
-		}
-
 	}
 
 	public static partial class HelperComponents
 	{
-
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentMotionInit()
 		{
-			Storage<ComponentMotion>.Instance.Creator = () => { return new ComponentMotion(); };
+			Storage<ComponentMotion>.Instance.Creator       = () => { return new ComponentMotion(); };
+			Storage<ComponentMotion>.Instance.DisposeAction = ComponentMotionDispose;
 		}
 
-		public static ComponentMotion ComponentMotion(this in ent entity)
+		static void ComponentMotionDispose(ComponentMotion component)
+		{
+		}
+
+		internal static ComponentMotion ComponentMotion(in this ent entity)
 		{
 			return Storage<ComponentMotion>.Instance.components[entity.id];
 		}
-
 	}
 }

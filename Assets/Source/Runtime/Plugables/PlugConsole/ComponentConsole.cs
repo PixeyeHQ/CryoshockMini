@@ -2,16 +2,17 @@
 //  Contacts : Pixeye - ask@pixeye.games 
 
 using System.Collections;
-using System.Text;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Profiling;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Pixeye.Framework
 {
-	public class ComponentConsole : MonoBehaviour, ITick
+	public class ComponentConsole : MonoBehaviour
 	{
 
 		public TMP_InputField fieldInput;
@@ -19,13 +20,16 @@ namespace Pixeye.Framework
 		public Scrollbar scrollbar;
 		public TextMeshProUGUI labelDebug;
 
-		private CanvasGroup canvasGroup;
-		private float caretTimer;
-		private ProcessorConsole processorConsole;
-		private Vector2Int size;
-		private string commandCached = string.Empty;
+		CanvasGroup canvasGroup;
+		float caretTimer;
+		float tickDebug;
+		ProcessorConsole processorConsole;
+		Vector2Int size;
+		string commandCached = string.Empty;
 
-		private StringBuilder fStr = new StringBuilder(256);
+		FastString debugStr = new FastString(256);
+
+		Timer timerCheckEventSystem;
 
 		public void ActivateConsole(bool activating)
 		{
@@ -41,64 +45,69 @@ namespace Pixeye.Framework
 			gameObject.SetActive(false);
 		}
 
-		private void Awake()
+		void Awake()
 		{
+			timerCheckEventSystem = new Timer(0.1f, () => EventSystem.current.SetSelectedGameObject(fieldInput.gameObject));
 			processorConsole = Toolbox.Get<ProcessorConsole>();
-
 			canvasGroup = GetComponent<CanvasGroup>();
 			canvasGroup.alpha = 0;
 		}
 
-		private void Start()
+		void Start()
 		{
 			transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-			AddMessage(
-					"Welcome back, commander\nType <color=#00cc66>?</color> or <color=#00cc66>Help</color> to get list of commands");
+			AddMessage("Welcome back, commander\nType <color=#00cc66>?</color> or <color=#00cc66>Help</color> to get list of commands");
 		}
 
-		private void OnEnable()
+		void OnEnable()
 		{
+			CheckEventSystem();
+
 			fieldInput.onSubmit.AddListener(AddToConsole);
 			fieldInput.onValueChanged.AddListener(ChangeText);
-			ProcessorUpdate.Default.Add(this);
 
-			Timer.Add(UnityEngine.Time.deltaTime, () => EventSystem.current.SetSelectedGameObject(fieldInput.gameObject));
 			fieldInput.caretPosition = 1;
 			tickDebug = 0.0f;
-			RenderDebug();
+			RenderDebug(0.0f);
 			StartCoroutine(_ColorLine());
 		}
 
-		private void RenderDebug()
+		void CheckEventSystem()
 		{
-			fStr.Length = 0;
+			var evSystem = EventSystem.current;
+			if (evSystem == null)
+			{
+				Debug.Log($"Console -> <color=#00CD64>Event System</color> was added to the {SceneManager.GetActiveScene().name} ");
+				evSystem = new GameObject("Event System", typeof(EventSystem), typeof(StandaloneInputModule)).GetComponent<EventSystem>();
+			}
+			fieldInput.enabled = true;
 
-			fStr
-					.AppendFormat("Time : {0} ms  GPU memory : {1}  Sys Memory : {2}\n", Time.delta, SystemInfo.graphicsMemorySize,
-							SystemInfo.systemMemorySize)
-					.AppendFormat("TotalAllocatedMemory : {0}mb	TotalReservedMemory : {1}mb	TotalUnusedReservedMemory : {2}mb\n",
-							Profiler.GetTotalAllocatedMemoryLong() / 1048576,
-							Profiler.GetTotalReservedMemoryLong() / 1048576,
-							Profiler.GetTotalUnusedReservedMemoryLong() / 1048576)
-					.AppendFormat("Actors : {0}	Ticks : {1}", Entity.entitiesDebugCount,
-							ProcessorUpdate.Default.GetTicksCount());
-			labelDebug.text = fStr.ToString();
+			timerCheckEventSystem.t = 0.1f;
+ 
 		}
 
-		private IEnumerator _ColorLine()
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		void RenderDebug(float fps)
+		{
+			debugStr.Clear();
+			debugStr.Append($"FPS: {fps.ToString("F1")} Time: {Time.delta}ms GPU memory: {SystemInfo.graphicsMemorySize}mb Sys Memory: {SystemInfo.systemMemorySize}mb").Append($"\nAllocatedMemory: {Profiler.GetTotalAllocatedMemoryLong() / 1048576}mb UnusedMemory: {Profiler.GetTotalUnusedReservedMemoryLong() / 1048576}mb ReservedMemory: {Profiler.GetTotalReservedMemoryLong() / 1048576}mb").Append($"\nActors: {Entity.Count} Ticks: {ProcessorUpdate.Default.GetTicksCount()}");
+
+			labelDebug.text = debugStr.ToString();
+		}
+
+		IEnumerator _ColorLine()
 		{
 			var textInfo = fieldInput.textComponent.textInfo;
 			fieldInput.textComponent.ForceMeshUpdate();
 
 			Color32[] newVertexColors;
-			Color32 c0 = fieldInput.textComponent.color;
+			Color32   c0 = fieldInput.textComponent.color;
 			fieldInput.textComponent.renderMode = TextRenderFlags.DontRender;
 			yield return new WaitForSeconds(0.1f);
 			while (true)
 			{
 				var characterCount = textInfo.characterCount;
 
-				// If No Characters then just yield and wait for some text to be added
 				if (characterCount == 0)
 				{
 					yield return new WaitForSeconds(0.25f);
@@ -125,15 +134,13 @@ namespace Pixeye.Framework
 
 				fieldInput.textComponent.UpdateVertexData();
 				if (Toolbox.isQuittingOrChangingScene()) yield break;
-				yield return new WaitForSeconds(Time.delta);
+				yield return new WaitForSeconds(UnityEngine.Time.deltaTime);
 			}
 		}
 
-		private void OnDisable()
+		void OnDisable()
 		{
 			if (Toolbox.isQuittingOrChangingScene()) return;
-
-			ProcessorUpdate.Default.Remove(this);
 
 			fieldInput.text = string.Empty;
 			fieldInput.onSubmit.RemoveListener(AddToConsole);
@@ -142,16 +149,16 @@ namespace Pixeye.Framework
 				EventSystem.current.SetSelectedGameObject(null);
 		}
 
-		private void AddMessage(string line)
+		void AddMessage(string line)
 		{
 			if (line == string.Empty) return;
 			fieldOutput.text += "-> " + line + "\n";
 		}
 
-		private void ChangeText(string line)
+		void ChangeText(string line)
 		{
 			var firstWord = line.Split(' ')[0];
-			var method = processorConsole.GetMethod(firstWord);
+			var method    = processorConsole.GetMethod(firstWord);
 			if (method == null)
 			{
 				size = new Vector2Int(-1, -1);
@@ -162,7 +169,7 @@ namespace Pixeye.Framework
 			}
 		}
 
-		private void AddToConsole(string line)
+		void AddToConsole(string line)
 		{
 			line = processorConsole.ParseCommand(line);
 
@@ -178,18 +185,40 @@ namespace Pixeye.Framework
 			AddMessage(line);
 		}
 
-		private float tickDebug;
+		float deltaCount;
+		float frameCount;
 
-		public void Tick()
+		void Update()
 		{
-			tickDebug += Time.delta;
-			if (tickDebug > 1f)
+			var delta = UnityEngine.Time.deltaTime;
+			++frameCount;
+			deltaCount += UnityEngine.Time.timeScale / delta;
+
+			tickDebug += delta;
+
+
+	 
+			if (timerCheckEventSystem.t > 0)
 			{
-				tickDebug = 0.0f;
-				RenderDebug();
+				timerCheckEventSystem.t -= delta;
+				if (timerCheckEventSystem.t <= 0)
+				{
+					timerCheckEventSystem.action();
+				}
 			}
 
-			caretTimer += Time.delta * 10;
+	 
+			
+			
+			if (tickDebug >= 1f)
+			{
+				RenderDebug(deltaCount / frameCount);
+				tickDebug = 0.0f;
+				deltaCount = 0f;
+				frameCount = 0f;
+			}
+
+			caretTimer += delta * 10;
 			fieldInput.caretColor = Color.white * Mathf.Sin(caretTimer);
 
 			if (!Input.GetKeyDown(KeyCode.UpArrow)) return;

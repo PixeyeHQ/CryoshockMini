@@ -8,20 +8,11 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	public class ComponentFace : IComponent
+	public class ComponentFace
 	{
 
 		public float direction;
 		public float directionOld;
-		
-		public void Copy(int entityID)
-		{
-			var component = Storage<ComponentFace>.Instance.GetFromStorage(entityID);
-		}
-
-		public void Dispose()
-		{
-		}
 
 	}
 

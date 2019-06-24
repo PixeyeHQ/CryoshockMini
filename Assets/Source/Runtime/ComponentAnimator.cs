@@ -9,37 +9,29 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	public class ComponentAnimator : IComponent
+	sealed class ComponentAnimator
 	{
-
 		public AnimatorGuide.Task guide;
 		public Animator source;
 		public int current;
-		
-		public void Copy(int entityID)
-		{
-			var component = Storage<ComponentAnimator>.Instance.GetFromStorage(entityID);
-		}
-
-		public void Dispose()
-		{
-		}
-
 	}
 
-	public static partial class HelperComponents
+	static partial class HelperComponents
 	{
-
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentAnimationsInit()
 		{
-			Storage<ComponentAnimator>.Instance.Creator = () => { return new ComponentAnimator(); };
+			Storage<ComponentAnimator>.Instance.Creator       = () => { return new ComponentAnimator(); };
+			Storage<ComponentAnimator>.Instance.DisposeAction = ComponentAnimatorDispose;
 		}
 
-		public static ComponentAnimator ComponentAnimator(this in ent entity)
+		static void ComponentAnimatorDispose(ComponentAnimator component)
+		{
+		}
+
+		internal static ComponentAnimator ComponentAnimator(this in ent entity)
 		{
 			return Storage<ComponentAnimator>.Instance.components[entity.id];
 		}
-
 	}
 }

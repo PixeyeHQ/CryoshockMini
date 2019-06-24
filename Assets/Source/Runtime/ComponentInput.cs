@@ -8,40 +8,30 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	public class ComponentInput : IComponent
+	sealed class ComponentInput
 	{
-
 		public KeyCode inputMoveRight;
 		public KeyCode inputMoveLeft;
 		public KeyCode inputShoot;
 		public KeyCode inputJump;
-
-		
-		
-		public void Copy(int entityID)
-		{
-			var component = Storage<ComponentInput>.Instance.GetFromStorage(entityID);
-		}
-
-		public void Dispose()
-		{
-		}
-
 	}
 
 	public static partial class HelperComponents
 	{
-
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentInputInit()
 		{
-			Storage<ComponentInput>.Instance.Creator = () => { return new ComponentInput(); };
+			Storage<ComponentInput>.Instance.Creator       = () => { return new ComponentInput(); };
+			Storage<ComponentInput>.Instance.DisposeAction = ComponentInputDispose;
 		}
 
-		public static ComponentInput ComponentInput(this in ent entity)
+		static void ComponentInputDispose(ComponentInput component)
+		{
+		}
+
+		internal static ComponentInput ComponentInput(this in ent entity)
 		{
 			return Storage<ComponentInput>.Instance.components[entity.id];
 		}
-
 	}
 }

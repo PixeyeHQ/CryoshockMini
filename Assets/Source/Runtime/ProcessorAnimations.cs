@@ -12,7 +12,7 @@ namespace Pixeye
 
 		private Group<ComponentAnimator> groupOfAnimators;
 
-		public void Tick()
+		public void Tick(float delta)
 		{
 			foreach (ent entity in groupOfAnimators)
 			{

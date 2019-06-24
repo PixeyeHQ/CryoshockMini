@@ -8,38 +8,30 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	public class ComponentAbilityJump : IComponent
+	sealed class ComponentAbilityJump
 	{
-		 
 		public float force;
 		public bool working;
 		public bool checkGround;
-		
-		public void Copy(int entityID)
-		{
-			var component = Storage<ComponentAbilityJump>.Instance.GetFromStorage(entityID);
-		}
-
-		public void Dispose()
-		{
-			working = false;
-		}
-
 	}
 
 	public static partial class HelperComponents
 	{
-
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentAbilityJumpInit()
 		{
-			Storage<ComponentAbilityJump>.Instance.Creator = () => { return new ComponentAbilityJump(); };
+			Storage<ComponentAbilityJump>.Instance.Creator       = () => { return new ComponentAbilityJump(); };
+			Storage<ComponentAbilityJump>.Instance.DisposeAction = ComponentAbilityJump;
 		}
 
-		public static ComponentAbilityJump ComponentAbilityJump(in this ent entity)
+		static void ComponentAbilityJump(ComponentAbilityJump component)
+		{
+			component.working = false;
+		}
+
+		internal static ComponentAbilityJump ComponentAbilityJump(in this ent entity)
 		{
 			return Storage<ComponentAbilityJump>.Instance.components[entity.id];
 		}
-
 	}
 }
