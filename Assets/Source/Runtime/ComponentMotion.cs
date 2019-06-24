@@ -12,6 +12,7 @@ namespace Pixeye
 	{
 		public float speedMax;
 		public Vector2 velocity;
+		 
 	}
 
 	public static partial class HelperComponents
@@ -25,6 +26,7 @@ namespace Pixeye
 
 		static void ComponentMotionDispose(ComponentMotion component)
 		{
+			component.velocity = Vector2.zero;
 		}
 
 		internal static ComponentMotion ComponentMotion(in this ent entity)

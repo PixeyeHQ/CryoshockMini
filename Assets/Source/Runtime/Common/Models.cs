@@ -30,7 +30,7 @@ namespace Pixeye
 			cRender.source = entity.GetMono<SpriteRenderer>();
 
 			cMotion.speedMax = 1.25f;
-
+			
 			cRigid.source = entity.GetMono<Rigidbody2D>();
 
 			cObject.position = cRigid.source.position;
@@ -40,7 +40,7 @@ namespace Pixeye
 			cInput.inputMoveLeft  = KeyCode.LeftArrow;
 			cInput.inputMoveRight = KeyCode.RightArrow;
 
-			
+
 			entity.transform.name = $"{entity.id} Obj Player";
 		}
 	}

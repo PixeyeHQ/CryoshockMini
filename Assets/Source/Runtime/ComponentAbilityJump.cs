@@ -26,7 +26,9 @@ namespace Pixeye
 
 		static void ComponentAbilityJump(ComponentAbilityJump component)
 		{
-			component.working = false;
+			component.working     = false;
+			component.checkGround = false;
+			component.force       = 0.0f;
 		}
 
 		internal static ComponentAbilityJump ComponentAbilityJump(in this ent entity)

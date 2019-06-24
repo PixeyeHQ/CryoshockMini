@@ -7,10 +7,9 @@ using Pixeye.Framework;
 
 namespace Pixeye
 {
-	public class ProcessorAnimations : Processor, ITick
+	class ProcessorAnimations : Processor, ITick
 	{
-
-		private Group<ComponentAnimator> groupOfAnimators;
+		public Group<ComponentAnimator> groupOfAnimators;
 
 		public void Tick(float delta)
 		{
@@ -20,6 +19,5 @@ namespace Pixeye
 				cAnimator.guide(entity, cAnimator);
 			}
 		}
-
 	}
 }

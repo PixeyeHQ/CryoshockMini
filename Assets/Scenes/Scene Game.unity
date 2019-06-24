@@ -623,7 +623,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -10
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 7d7d3f81e5494fb4a86063e4773871dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -678,13 +678,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acef2cf2a5f673e49ad0947f71cc7c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factories: []
-  ScenesToKeep:
-  - sceneAsset: {fileID: 102900000, guid: b1c1e3eb1cede744db636d5f7c880773, type: 3}
-    sceneName: Scene Kernel
+  ScenesToKeep: []
   SceneDependsOn:
-  - sceneAsset: {fileID: 102900000, guid: b1c1e3eb1cede744db636d5f7c880773, type: 3}
-    sceneName: Scene Kernel
   - sceneAsset: {fileID: 102900000, guid: ba81c98bb666b7d46afb064b34bff2de, type: 3}
     sceneName: Scene Camera
   nodes: []
@@ -697,7 +692,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1518021748}
-  - component: {fileID: 1518021749}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -721,17 +715,6 @@ Transform:
   m_Father: {fileID: 622945359}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &1518021749
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518021747}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!1 &1546262095
 GameObject:
   m_ObjectHideFlags: 0

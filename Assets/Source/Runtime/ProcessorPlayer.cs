@@ -9,13 +9,13 @@ namespace Pixeye
 {
 	class ProcessorPlayer : Processor, ITick
 	{
-		Group<ComponentInput, ComponentMotion, ComponentRigid, ComponentObject> groupOfPlayers;
-		Group<ComponentInput, ComponentAbilityJump, ComponentRigid> groupThatCanJump;
+		public Group<ComponentInput, ComponentMotion, ComponentRigid, ComponentObject> groupAll;
+		public Group<ComponentInput, ComponentAbilityJump, ComponentRigid> groupJumping;
 
 
 		public void Tick(float delta)
 		{
-			foreach (var entity in groupOfPlayers)
+			foreach (var entity in groupAll)
 			{
 				var cInput  = entity.ComponentInput();
 				var cRigid  = entity.ComponentRigid();
@@ -46,7 +46,7 @@ namespace Pixeye
 				cObject.position       = cRigid.source.position;
 			}
 
-			foreach (var entity in groupThatCanJump)
+			foreach (var entity in groupJumping)
 			{
 				var cInput       = entity.ComponentInput();
 				var cAbilityJump = entity.ComponentAbilityJump();
@@ -68,7 +68,7 @@ namespace Pixeye
 					cAbilityJump.working = true;
 
 					cRigid.source.AddForce(new Vector2(0, cAbilityJump.force));
-					Timer.Add(Time.deltaFixed * 10, () => cAbilityJump.checkGround = true); // not a good habbyt.
+					Timer.Add(Time.deltaFixed * 10, () => { cAbilityJump.checkGround = true; }); // not a good habbyt.
 				}
 			}
 		}
