@@ -3,7 +3,7 @@
 
 using Pixeye.Framework;
 using UnityEngine;
-using Time = Pixeye.Framework.Time;
+
 
 namespace Pixeye
 {
@@ -17,10 +17,10 @@ namespace Pixeye
 		{
 			foreach (var entity in groupAll)
 			{
-				var cInput  = entity.ComponentInput();
-				var cRigid  = entity.ComponentRigid();
-				var cMotion = entity.ComponentMotion();
-				var cObject = entity.ComponentObject();
+				ref var cInput  = ref entity.ComponentInput();
+				ref var cRigid  = ref entity.ComponentRigid();
+				ref var cMotion = ref entity.ComponentMotion();
+				ref var cObject = ref entity.ComponentObject();
 
 				var velocity = cRigid.source.velocity;
 
@@ -39,7 +39,7 @@ namespace Pixeye
 						velocity.x = -cMotion.speedMax;
 					}
 				}
-				else velocity.x = 0;
+				else velocity.x = 0;//Mathf.Clamp(velocity.x, -10, 10);
 
 				cRigid.source.velocity = velocity;
 				cMotion.velocity       = velocity;
@@ -48,9 +48,9 @@ namespace Pixeye
 
 			foreach (var entity in groupJumping)
 			{
-				var cInput       = entity.ComponentInput();
-				var cAbilityJump = entity.ComponentAbilityJump();
-				var cObject      = entity.ComponentObject();
+				ref var cInput       = ref entity.ComponentInput();
+				ref var cAbilityJump = ref entity.ComponentAbilityJump();
+				ref var cObject      = ref entity.ComponentObject();
 
 				if (cAbilityJump.checkGround)
 				{
@@ -61,14 +61,20 @@ namespace Pixeye
 						cAbilityJump.checkGround = false;
 					}
 				}
+				else
+				{
+					if (cAbilityJump.timeJump.PlusCheck(delta, 0.1f))
+					{
+						cAbilityJump.checkGround = true;
+					}
+				}
 
 				if (Input.GetKeyDown(cInput.inputJump) && !cAbilityJump.working)
 				{
-					var cRigid = entity.ComponentRigid();
-					cAbilityJump.working = true;
-
+					ref var cRigid = ref entity.ComponentRigid();
+					cAbilityJump.working  = true;
+					cAbilityJump.timeJump = 0.0f;
 					cRigid.source.AddForce(new Vector2(0, cAbilityJump.force));
-					Timer.Add(Time.deltaFixed * 10, () => { cAbilityJump.checkGround = true; }); // not a good habbyt.
 				}
 			}
 		}

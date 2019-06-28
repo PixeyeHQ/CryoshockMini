@@ -16,8 +16,8 @@ namespace Pixeye
 		{
 			foreach (ent entity in groupToFlip)
 			{
-				var cFace   = entity.ComponentFace();
-				var cRender = entity.ComponentRender();
+				ref var cFace   = ref entity.ComponentFace();
+				ref var cRender = ref entity.ComponentRender();
 
 				if (cFace.direction != cFace.directionOld)
 				{
@@ -28,8 +28,8 @@ namespace Pixeye
 
 			foreach (ent entity in groupToControlFace)
 			{
-				var cFace   = entity.ComponentFace();
-				var cMotion = entity.ComponentMotion();
+				ref var cFace   = ref entity.ComponentFace();
+				ref var cMotion = ref entity.ComponentMotion();
 
 				if (cMotion.velocity.x > 0)
 					cFace.direction = 1;
@@ -40,7 +40,7 @@ namespace Pixeye
 
 			foreach (ent entity in groupFallingObjects)
 			{
-				var     cObject  = entity.ComponentObject();
+				ref var cObject  = ref entity.ComponentObject();
 				ref var position = ref cObject.position;
 
 				if (position.y < -1.35f)

@@ -8,8 +8,9 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	sealed class ComponentAbilityJump
+	struct ComponentAbilityJump
 	{
+		public float timeJump;
 		public float force;
 		public bool working;
 		public bool checkGround;
@@ -21,19 +22,20 @@ namespace Pixeye
 		static void ComponentAbilityJumpInit()
 		{
 			Storage<ComponentAbilityJump>.Instance.Creator       = () => { return new ComponentAbilityJump(); };
-			Storage<ComponentAbilityJump>.Instance.DisposeAction = ComponentAbilityJump;
+			Storage<ComponentAbilityJump>.Instance.DisposeAction = ComponentAbilityJumpDispose;
 		}
 
-		static void ComponentAbilityJump(ComponentAbilityJump component)
+		static void ComponentAbilityJumpDispose(in ent entity)
 		{
+			ref var component = ref Storage<ComponentAbilityJump>.Instance.components[entity.id];
 			component.working     = false;
 			component.checkGround = false;
 			component.force       = 0.0f;
 		}
 
-		internal static ComponentAbilityJump ComponentAbilityJump(in this ent entity)
+		internal static ref ComponentAbilityJump ComponentAbilityJump(in this ent entity)
 		{
-			return Storage<ComponentAbilityJump>.Instance.components[entity.id];
+			return ref Storage<ComponentAbilityJump>.Instance.components[entity.id];
 		}
 	}
 }

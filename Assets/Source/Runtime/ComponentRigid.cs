@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	sealed class ComponentRigid
+	struct ComponentRigid
 	{
 		public Rigidbody2D source;
 	}
@@ -22,14 +22,15 @@ namespace Pixeye
 			Storage<ComponentRigid>.Instance.DisposeAction = ComponentRigidDispose;
 		}
 
-		static void ComponentRigidDispose(ComponentRigid component)
+		static void ComponentRigidDispose(in ent entity)
 		{
+			ref var component = ref Storage<ComponentRigid>.Instance.components[entity.id];
 			component.source = null;
 		}
 
-		internal static ComponentRigid ComponentRigid(this in ent entity)
+		internal static ref ComponentRigid ComponentRigid(this in ent entity)
 		{
-			return Storage<ComponentRigid>.Instance.components[entity.id];
+			return ref Storage<ComponentRigid>.Instance.components[entity.id];
 		}
 	}
 }

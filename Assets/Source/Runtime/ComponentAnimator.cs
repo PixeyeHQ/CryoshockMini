@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	sealed class ComponentAnimator
+	struct ComponentAnimator
 	{
 		public AnimatorGuide.Task guide;
 		public Animator source;
@@ -25,13 +25,15 @@ namespace Pixeye
 			Storage<ComponentAnimator>.Instance.DisposeAction = ComponentAnimatorDispose;
 		}
 
-		static void ComponentAnimatorDispose(ComponentAnimator component)
+		static void ComponentAnimatorDispose(in ent entity)
 		{
+			ref var component = ref Storage<ComponentAnimator>.Instance.components[entity.id];
+			component.source = null;
 		}
 
-		internal static ComponentAnimator ComponentAnimator(this in ent entity)
+		internal static ref ComponentAnimator ComponentAnimator(this in ent entity)
 		{
-			return Storage<ComponentAnimator>.Instance.components[entity.id];
+			return ref Storage<ComponentAnimator>.Instance.components[entity.id];
 		}
 	}
 }

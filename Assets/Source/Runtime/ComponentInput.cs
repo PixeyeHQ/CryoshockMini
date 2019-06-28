@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	sealed class ComponentInput
+	struct ComponentInput
 	{
 		public KeyCode inputMoveRight;
 		public KeyCode inputMoveLeft;
@@ -25,13 +25,13 @@ namespace Pixeye
 			Storage<ComponentInput>.Instance.DisposeAction = ComponentInputDispose;
 		}
 
-		static void ComponentInputDispose(ComponentInput component)
+		static void ComponentInputDispose(in ent entity)
 		{
 		}
 
-		internal static ComponentInput ComponentInput(this in ent entity)
+		internal static ref ComponentInput ComponentInput(this in ent entity)
 		{
-			return Storage<ComponentInput>.Instance.components[entity.id];
+			return ref Storage<ComponentInput>.Instance.components[entity.id];
 		}
 	}
 }

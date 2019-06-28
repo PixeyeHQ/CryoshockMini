@@ -8,11 +8,10 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	sealed class ComponentMotion
+	struct ComponentMotion
 	{
 		public float speedMax;
 		public Vector2 velocity;
-		 
 	}
 
 	public static partial class HelperComponents
@@ -24,14 +23,16 @@ namespace Pixeye
 			Storage<ComponentMotion>.Instance.DisposeAction = ComponentMotionDispose;
 		}
 
-		static void ComponentMotionDispose(ComponentMotion component)
+		static void ComponentMotionDispose(in ent entity)
 		{
+			ref var component = ref Storage<ComponentMotion>.Instance.components[entity.id];
+
 			component.velocity = Vector2.zero;
 		}
 
-		internal static ComponentMotion ComponentMotion(in this ent entity)
+		internal static ref ComponentMotion ComponentMotion(in this ent entity)
 		{
-			return Storage<ComponentMotion>.Instance.components[entity.id];
+			return ref Storage<ComponentMotion>.Instance.components[entity.id];
 		}
 	}
 }

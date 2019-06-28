@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Pixeye
 {
-	sealed class ComponentFace
+	struct ComponentFace
 	{
 		public float direction;
 		public float directionOld;
@@ -21,15 +21,16 @@ namespace Pixeye
 			Storage<ComponentFace>.Instance.DisposeAction = ComponentFaceDispose;
 		}
 
-		static void ComponentFaceDispose(ComponentFace component)
+		static void ComponentFaceDispose(in ent entity)
 		{
+			ref var component = ref Storage<ComponentFace>.Instance.components[entity.id];
 			component.direction    = 0;
 			component.directionOld = 0;
 		}
 
-		internal static ComponentFace ComponentFace(in this ent entity)
+		internal static ref ComponentFace ComponentFace(in this ent entity)
 		{
-			return Storage<ComponentFace>.Instance.components[entity.id];
+			return ref Storage<ComponentFace>.Instance.components[entity.id];
 		}
 	}
 }

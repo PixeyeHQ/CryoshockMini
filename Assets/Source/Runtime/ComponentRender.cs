@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Pixeye
 {
 	[Serializable]
-	sealed class ComponentRender
+	struct ComponentRender
 	{
 		public SpriteRenderer source;
 	}
@@ -25,9 +25,9 @@ namespace Pixeye
 			component.source = null;
 		}
 
-		internal static ComponentRender ComponentRender(in this ent entity)
+		internal static ref ComponentRender ComponentRender(in this ent entity)
 		{
-			return Storage<ComponentRender>.Instance.components[entity.id];
+			return ref Storage<ComponentRender>.Instance.components[entity.id];
 		}
 	}
 }
