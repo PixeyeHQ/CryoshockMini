@@ -2,6 +2,7 @@
 // Contacts : Pix - ask@pixeye.games
 
 
+using System;
 using UnityEngine;
 using Pixeye.Framework;
 using System.Runtime.CompilerServices;
@@ -9,15 +10,14 @@ using System.Runtime.CompilerServices;
 
 namespace Pixeye.Source
 {
+	[Serializable]
 	struct ComponentWeapon
 	{
 		public float timeRate;
 		public float t;
 	}
 
-
-	#region HELPERS
-
+ 
 	static partial class Components
 	{
 		public const string Weapon = "Pixeye.Source.ComponentWeapon";
@@ -41,5 +41,5 @@ namespace Pixeye.Source
 		}
 	}
 
-	#endregion
+ 
 }

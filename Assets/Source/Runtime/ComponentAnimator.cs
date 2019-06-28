@@ -16,8 +16,10 @@ namespace Pixeye
 		public int current;
 	}
 
-	static partial class HelperComponents
+	static partial class Components
 	{
+		public const string Animator = "Pixeye.Source.ComponentAnimator";
+		
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentAnimationsInit()
 		{

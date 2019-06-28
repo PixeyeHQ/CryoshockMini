@@ -12,8 +12,10 @@ namespace Pixeye
 		public float directionOld;
 	}
 
-	public static partial class HelperComponents
+  static partial class Components
 	{
+		public const string Face = "Pixeye.Source.ComponentFace";
+		
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentFaceInit()
 		{

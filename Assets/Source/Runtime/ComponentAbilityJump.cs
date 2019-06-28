@@ -16,8 +16,10 @@ namespace Pixeye
 		public bool checkGround;
 	}
 
-	public static partial class HelperComponents
+	 static partial class Components
 	{
+		public const string AbilityJump = "Pixeye.Source.ComponentAbilityJump";
+		
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentAbilityJumpInit()
 		{

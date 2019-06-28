@@ -13,9 +13,12 @@ namespace Pixeye
 		public float speedMax;
 		public Vector2 velocity;
 	}
-
-	public static partial class HelperComponents
+	
+	static partial class Components
 	{
+
+		public const string Motion = "Pixeye.Source.ComponentMotion";
+		
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentMotionInit()
 		{

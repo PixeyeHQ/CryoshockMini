@@ -13,8 +13,11 @@ namespace Pixeye
 		public SpriteRenderer source;
 	}
 
-	public static partial class HelperComponents
+	
+	static partial class Components
 	{
+		public const string Render = "Pixeye.Source.ComponentRender";
+		
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentRenderInit()
 		{

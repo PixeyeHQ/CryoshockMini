@@ -13,8 +13,12 @@ namespace Pixeye
 		public Vector3 position;
 	}
 
-	public static partial class HelperComponents
+	
+	static partial class Components
 	{
+
+		public const string Object = "Pixeye.Source.ComponentObject";
+		
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentObjectInit()
 		{

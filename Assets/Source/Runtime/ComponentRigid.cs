@@ -13,8 +13,11 @@ namespace Pixeye
 		public Rigidbody2D source;
 	}
 
-	public static partial class HelperComponents
+	
+	static partial class Components
 	{
+		public const string Rigid = "Pixeye.Source.ComponentRigid";
+		
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentRigidInit()
 		{

@@ -16,8 +16,11 @@ namespace Pixeye
 		public KeyCode inputJump;
 	}
 
-	public static partial class HelperComponents
+	static partial class Components
 	{
+
+		public const string Input = "Pixeye.Source.ComponentInput";
+		
 		[RuntimeInitializeOnLoadMethod]
 		static void ComponentInputInit()
 		{
