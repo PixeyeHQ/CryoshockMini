@@ -20,7 +20,7 @@ namespace Pixeye.Source
 
 		public ProcessorShoot()
 		{
-			bufferAmmos = new BufferStruct<SegmentAmmo>(300);
+			bufferAmmos = new BufferStruct<SegmentAmmo>(1000);
 		}
 
 		public void Tick(float delta)
@@ -41,6 +41,8 @@ namespace Pixeye.Source
 					{
 						t = cWeapon.timeRate;
 
+						
+						
 						// Make Bullet
 						var position = cObject.position;
 						position.x += cFace.direction * 0.15f;
@@ -82,7 +84,7 @@ namespace Pixeye.Source
 				position.x              += segment.speed * delta;
 
 
-				if ((lifeTime -= delta) <= 0)
+				if ((lifeTime -= delta) <= delta)
 				{
 					segment.source.gameObject.Release(Pool.Entities);
 					bufferAmmos.RemoveAt(i);

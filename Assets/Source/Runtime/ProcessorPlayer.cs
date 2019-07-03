@@ -39,7 +39,7 @@ namespace Pixeye
 						velocity.x = -cMotion.speedMax;
 					}
 				}
-				else velocity.x = 0;//Mathf.Clamp(velocity.x, -10, 10);
+				else velocity.x = 0;
 
 				cRigid.source.velocity = velocity;
 				cMotion.velocity       = velocity;

@@ -17,13 +17,7 @@ namespace Pixeye
 			return Toolbox.Get<ProcessorConsole>().Help();
 		}
 
-		[Bind]
-		public string Debug()
-		{
-			SettingsEngine.DebugMode = !SettingsEngine.DebugMode;
-			ProcessorSignals.Send(SignalDebug.New);
-			return $"Debug Mode: {SettingsEngine.DebugMode}";
-		}
+ 
 
 		[Bind]
 		public string Create(string prefabID, Vector3 position)

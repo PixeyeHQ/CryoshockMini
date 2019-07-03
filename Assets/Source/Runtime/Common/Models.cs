@@ -7,7 +7,8 @@ using UnityEngine;
 
 namespace Pixeye
 {
-	public static class Models
+	[CreateAssetMenu]
+	public class Models : ScriptableBuild
 	{
 		public static void Player(in ent entity)
 		{
@@ -20,7 +21,7 @@ namespace Pixeye
 			ref var cObject      = ref entity.Set<ComponentObject>();
 			ref var cInput       = ref entity.Set<ComponentInput>();
 			ref var cWeapon      = ref entity.Set<ComponentWeapon>();
-	
+
 			// Component Face
 			cFace.direction = 1;
 			// Component Ability Jump

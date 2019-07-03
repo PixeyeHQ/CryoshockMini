@@ -20,7 +20,7 @@ namespace Pixeye
 
 		public override void Plug()
 		{
-			SettingsEngine.DefineDebugMode = true; 
+ 
 			Toolbox.Add<ProcessorConsole>().Setup(commandsDebug);
 		}
 
