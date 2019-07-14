@@ -6,15 +6,8 @@ using Pixeye.Framework;
 
 namespace Pixeye
 {
-	static class AnimatorGuide
+	abstract class AnimatorGuide
 	{
-		public delegate void Task(in ent entity, ComponentAnimator cAnimator);
-
-		public static void Player(in ent entity, ComponentAnimator cAnimator)
-		{
-			var cMotion = entity.ComponentMotion();
-			cAnimator.source.SetFloat(Anim.PARAM_X, Math.Abs(cMotion.velocity.x));
-			cAnimator.source.SetFloat(Anim.PARAM_Y, Math.Abs(cMotion.velocity.y));
-		}
+		public abstract void Do(in ent entity, ComponentAnimator cAnimator);
 	}
 }

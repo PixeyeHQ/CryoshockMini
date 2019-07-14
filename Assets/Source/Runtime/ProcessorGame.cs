@@ -2,18 +2,33 @@
 // Contacts : Pix - ask@pixeye.games
 
 using Pixeye.Framework;
+using Pixeye.Source;
 using UnityEngine;
 
 namespace Pixeye
 {
 	class ProcessorGame : Processor, ITick
 	{
+		const float timerSpawnMob = 0.5f;
+
 		public Group<ComponentFace, ComponentRender> groupToFlip;
 		public Group<ComponentFace, ComponentMotion> groupToControlFace;
 		public Group<ComponentObject> groupFallingObjects;
 
+		float alarmSpawnMob;
+
 		public void Tick(float delta)
 		{
+			if (alarmSpawnMob.PlusCheck(delta, timerSpawnMob))
+			{
+				var actor = Actor.Create("Obj Unit", Models.Monster, new Vector3(0, 2, 0));
+				actor.entity.ComponentAI().blockMovement = true;
+				Timer.Add(0.35f, () => actor.entity.ComponentAI().blockMovement = false);
+
+				alarmSpawnMob = 0.0f;
+			}
+
+
 			foreach (ent entity in groupToFlip)
 			{
 				ref var cFace   = ref entity.ComponentFace();

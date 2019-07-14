@@ -41,7 +41,7 @@ namespace Pixeye
 				}
 				else velocity.x = 0;
 
-				cRigid.source.velocity = velocity;
+			  cRigid.source.velocity = velocity;
 				cMotion.velocity       = velocity;
 				cObject.position       = cRigid.source.position;
 			}

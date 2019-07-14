@@ -11,7 +11,7 @@ namespace Pixeye
 	[Serializable]
 	struct ComponentAnimator
 	{
-		public AnimatorGuide.Task guide;
+		public AnimatorGuide guide;
 		public Animator source;
 		public int current;
 	}

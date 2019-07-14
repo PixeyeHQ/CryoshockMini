@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entity: -1
   isPooled: 0
-  blueprint: {fileID: 0}
+  buildFrom: {fileID: 0}
 --- !u!1001 &595559836209663468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69,15 +69,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -7730506663130280965, guid: 3d8edc6a15f4f4c4cb0ee08206e479de,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3936793285218609181, guid: 3d8edc6a15f4f4c4cb0ee08206e479de,
         type: 3}
       propertyPath: m_Name
       value: Obj Unit
+      objectReference: {fileID: 0}
+    - target: {fileID: -7730506663130280965, guid: 3d8edc6a15f4f4c4cb0ee08206e479de,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2776649135941669405, guid: 3d8edc6a15f4f4c4cb0ee08206e479de,
         type: 3}

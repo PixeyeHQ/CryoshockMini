@@ -28,7 +28,7 @@ namespace Pixeye
 			cAbilityJump.force = 240;
 			// Component Animator
 			cAnimator.current                          = Anim.IDLE;
-			cAnimator.guide                            = AnimatorGuide.Player;
+			cAnimator.guide                            = AnimatorGuidePlayer.Use;
 			cAnimator.source                           = entity.GetMono<Animator>();
 			cAnimator.source.runtimeAnimatorController = Box.Get<RuntimeAnimatorController>("Animator Hero Pistol");
 			// Component Render
@@ -48,8 +48,39 @@ namespace Pixeye
 			cWeapon.t        = 0.0f;
 			cWeapon.timeRate = 0.1f;
 
-
 			entity.transform.name = $"{entity.id} Obj Player";
+		}
+
+
+		public static void Monster(in ent entity)
+		{
+			ref var cFace     = ref entity.Set<ComponentFace>();
+			ref var cAnimator = ref entity.Set<ComponentAnimator>();
+			ref var cRender   = ref entity.Set<ComponentRender>();
+			ref var cMotion   = ref entity.Set<ComponentMotion>();
+			ref var cRigid    = ref entity.Set<ComponentRigid>();
+			ref var cObject   = ref entity.Set<ComponentObject>();
+			ref var cMonster  = ref entity.Set<ComponentAI>();
+
+			// Component Face
+			cFace.direction = 1;
+			// Component Animator
+			cAnimator.current                          = Anim.IDLE;
+			cAnimator.guide                            = AnimatorGuideMonster.Use;
+			cAnimator.source                           = entity.GetMono<Animator>();
+			cAnimator.source.runtimeAnimatorController = Box.Get<RuntimeAnimatorController>("Animator Monster");
+			// Component Render
+			cRender.source = entity.GetMono<SpriteRenderer>();
+			// Component Motion
+			cMotion.speedMax = 1.25f;
+			// Component Rigidbody
+			cRigid.source = entity.GetMono<Rigidbody2D>();
+			// Component Object
+			cObject.position = cRigid.source.position;
+			// Component AI
+			cMonster.speedMax = 1;
+
+			entity.transform.name = $"{entity.id} Obj Monster";
 		}
 	}
 }

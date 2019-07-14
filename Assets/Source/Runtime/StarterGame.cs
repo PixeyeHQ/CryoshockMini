@@ -8,9 +8,10 @@ public class StarterGame : Starter
 	{
 		Add<ProcessorGame>();
 		Add<ProcessorPlayer>();
+		Add<ProcessorMonster>();
 		Add<ProcessorShoot>();
 		Add<ProcessorAnimations>();
 
-	  Actor.Create("Obj Unit", Models.Player);
+		Actor.Create("Obj Unit", Models.Player);
 	}
 }

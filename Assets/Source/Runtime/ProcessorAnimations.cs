@@ -16,7 +16,7 @@ namespace Pixeye
 			foreach (ent entity in groupOfAnimators)
 			{
 				ref var cAnimator = ref entity.ComponentAnimator();
-				cAnimator.guide(entity, cAnimator);
+				cAnimator.guide.Do(entity, cAnimator);
 			}
 		}
 	}
