@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Pixeye
+namespace Pixeye.Source
 {
 	public static class Anim
 	{

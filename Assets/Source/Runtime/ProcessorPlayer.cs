@@ -5,7 +5,7 @@ using Pixeye.Framework;
 using UnityEngine;
 
 
-namespace Pixeye
+namespace Pixeye.Source
 {
 	class ProcessorPlayer : Processor, ITick
 	{
@@ -15,6 +15,8 @@ namespace Pixeye
 
 		public void Tick(float delta)
 		{
+		 
+			// Move
 			foreach (var entity in groupAll)
 			{
 				ref var cInput  = ref entity.ComponentInput();
@@ -41,11 +43,12 @@ namespace Pixeye
 				}
 				else velocity.x = 0;
 
-			  cRigid.source.velocity = velocity;
+				cRigid.source.velocity = velocity;
 				cMotion.velocity       = velocity;
 				cObject.position       = cRigid.source.position;
 			}
 
+			// Jump
 			foreach (var entity in groupJumping)
 			{
 				ref var cInput       = ref entity.ComponentInput();

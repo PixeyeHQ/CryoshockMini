@@ -2,10 +2,9 @@
 // Contacts : Pix - ask@pixeye.games
 
 using Pixeye.Framework;
-using Pixeye.Source;
 using UnityEngine;
 
-namespace Pixeye
+namespace Pixeye.Source
 {
 	[CreateAssetMenu]
 	public class Models : ScriptableBuild
@@ -54,13 +53,14 @@ namespace Pixeye
 
 		public static void Monster(in ent entity)
 		{
-			ref var cFace     = ref entity.Set<ComponentFace>();
-			ref var cAnimator = ref entity.Set<ComponentAnimator>();
-			ref var cRender   = ref entity.Set<ComponentRender>();
-			ref var cMotion   = ref entity.Set<ComponentMotion>();
-			ref var cRigid    = ref entity.Set<ComponentRigid>();
-			ref var cObject   = ref entity.Set<ComponentObject>();
-			ref var cMonster  = ref entity.Set<ComponentAI>();
+			ref var cFace      = ref entity.Set<ComponentFace>();
+			ref var cAnimator  = ref entity.Set<ComponentAnimator>();
+			ref var cRender    = ref entity.Set<ComponentRender>();
+			ref var cMotion    = ref entity.Set<ComponentMotion>();
+			ref var cRigid     = ref entity.Set<ComponentRigid>();
+			ref var cObject    = ref entity.Set<ComponentObject>();
+			ref var cAI        = ref entity.Set<ComponentAI>();
+			ref var cCollision = ref entity.Set<ComponentCollision>();
 
 			// Component Face
 			cFace.direction = 1;
@@ -78,7 +78,10 @@ namespace Pixeye
 			// Component Object
 			cObject.position = cRigid.source.position;
 			// Component AI
-			cMonster.speedMax = 1;
+			cAI.speedMax = 1;
+			// Component Collision
+			cCollision.source = entity.GetMono<Collider2D>();
+
 
 			entity.transform.name = $"{entity.id} Obj Monster";
 		}

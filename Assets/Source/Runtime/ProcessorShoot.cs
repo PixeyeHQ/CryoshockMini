@@ -41,15 +41,14 @@ namespace Pixeye.Source
 					{
 						t = cWeapon.timeRate;
 
-						
-						
+
 						// Make Bullet
 						var position = cObject.position;
 						position.x += cFace.direction * 0.15f;
 						position.y += 0.02f;
 
 						ref var segment = ref bufferAmmos.Add();
-						segment.source   = Obj.Spawn(Pool.Entities, "Obj Sprite", position);
+						segment.source   = Obj.Spawn(Pool.Entities, DataBase.Prefabs.Sprite, position);
 						segment.position = position;
 						segment.renderer = segment.source.GetComponent<SpriteRenderer>();
 						segment.speed    = 3 * cFace.direction;
@@ -80,9 +79,15 @@ namespace Pixeye.Source
 					}
 				}
 
+				var nextMoveStep = segment.speed * delta;
 				segment.source.position =  position;
-				position.x              += segment.speed * delta;
+				position.x              += nextMoveStep;
 
+				if (Phys.GetMonster(out ent nextMonster, position, new Vector2(segment.speed, 0), nextMoveStep, 1 << 0))
+				{
+					nextMonster.Release();
+					lifeTime = -1;
+				}
 
 				if ((lifeTime -= delta) <= delta)
 				{

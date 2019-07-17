@@ -5,7 +5,7 @@ using Pixeye.Framework;
 using Pixeye.Source;
 using UnityEngine;
 
-namespace Pixeye
+namespace Pixeye.Source
 {
 	class ProcessorGame : Processor, ITick
 	{
@@ -21,7 +21,7 @@ namespace Pixeye
 		{
 			if (alarmSpawnMob.PlusCheck(delta, timerSpawnMob))
 			{
-				var actor = Actor.Create("Obj Unit", Models.Monster, new Vector3(0, 2, 0));
+				var actor = Actor.Create(DataBase.Prefabs.Unit, Models.Monster, new Vector3(0, 2, 0), true);
 				actor.entity.ComponentAI().blockMovement = true;
 				Timer.Add(0.35f, () => actor.entity.ComponentAI().blockMovement = false);
 

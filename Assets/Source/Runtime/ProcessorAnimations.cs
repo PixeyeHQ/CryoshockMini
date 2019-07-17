@@ -5,7 +5,7 @@
 using Pixeye.Framework;
 
 
-namespace Pixeye
+namespace Pixeye.Source
 {
 	class ProcessorAnimations : Processor, ITick
 	{

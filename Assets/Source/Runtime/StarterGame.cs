@@ -1,17 +1,17 @@
-﻿using Pixeye;
-using Pixeye.Framework;
+﻿using Pixeye.Framework;
 using Pixeye.Source;
 
 public class StarterGame : Starter
 {
 	protected override void Setup()
 	{
+		Add<ProcessorCollisions>();
 		Add<ProcessorGame>();
 		Add<ProcessorPlayer>();
 		Add<ProcessorMonster>();
 		Add<ProcessorShoot>();
 		Add<ProcessorAnimations>();
 
-		Actor.Create("Obj Unit", Models.Player);
+		Actor.Create(DataBase.Prefabs.Unit, Models.Player);
 	}
 }
